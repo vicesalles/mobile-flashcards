@@ -24,7 +24,8 @@ class MainList extends Component{
             <View>
                 <FlatList
                 data={this.state.decks} 
-                renderItem={({item})=><ListDeckItem navigation={this.props.navigation} key={item.id} {...item}/>}/>
+                renderItem={({item})=><ListDeckItem navigation={this.props.navigation} {...item}/>}
+                keyExtractor={(item, index) => index}/>
             </View>
         )
     }
