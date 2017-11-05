@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import {View, Text, TouchableHighlight,StyleSheet } from 'react-native';
 import {black,red,white,grey} from '../utils/colors';
 
+
 class ListDeckItem extends Component {
+
+    constructor(props){
+        super(props);
+    }
 
     pressed = (id) =>{
         console.log('push: ',id);
+        this.props.navigation.navigate('Deck');
     }
 
     render() {
