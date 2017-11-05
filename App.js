@@ -1,13 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import * as colors from './utils/colors';
+
+import MainList from './components/MainList';
+import FlashStatusBar from './components/FlashStatusBar';
+import CreateButton from './components/CreateButton';
+import MainHeader from './components/MainHeader';
 
 export default class App extends React.Component {
+
+  
   render() {
+    
+    //Temporary data
+    const myItems = [{title:'React JS',id:0, nCards:5},
+    {title:'React Native',id:1, nCards:4},
+    {title:'Redux',id:2, nCards:8},
+    {title:'Express',id:3, nCards:8},
+    {title:'Socket.io',id:4, nCards:8},
+    {title:'MongoDB',id:5, nCards:8},
+    {title:'Passport.js',id:6, nCards:1}];
+
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <FlashStatusBar/>
+        <MainHeader style={styles.header}/>
+        <MainList style={styles.list} items={myItems}/>
+        <CreateButton style={styles.button}/>
       </View>
     );
   }
@@ -15,9 +34,16 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1 ,
+    backgroundColor: colors.black
   },
+  list:{
+    flex:4
+  },
+  button:{
+    flex:1
+  },
+  header:{
+    flex:1
+  }
 });
