@@ -16,8 +16,8 @@ class DeckView extends Component{
         return(
             <View style={{flex:1}}>
                 <View style={styles.description}>
-                    <Text style={styles.title}>This is Title</Text>
-                    <Text style={styles.nCards}>this is n cards</Text>
+                    <Text style={styles.title}>{this.props.title}</Text>
+                    <Text style={styles.nCards}>{toString(this.props.questions.length)} cards</Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableHighlight style={[styles.quiz,styles.button]} onPress={this.goQuiz}><Text style={[styles.quizText,styles.textButton]}>Quiz</Text></TouchableHighlight>
