@@ -19,3 +19,10 @@ This is a flashcard Android App that allows the user creating as much flashcards
 ### Keywords
 
 React Native
+
+
+2.Crear Quiz
+    -Model
+    -Vista
+    -Funcionalitat
+    -Pantalla Resultats

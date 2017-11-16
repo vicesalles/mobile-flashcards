@@ -1,17 +1,53 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableHighlight, StyleSheet, TextInput, KeyboardAvoidingView} from 'react-native';
+import {connect} from 'react-redux';
 import * as colors from '../utils/colors';
+import {createDeck} from '../actions';
 
 class CreateDeck extends Component{
+    state={
+        value:''
+    }
+
+    //Updates form value
+    updateValue = (value) =>{
+       this.setState({value});        
+    }
+
+    //Create Decks
+    createNew=()=>{
+        const value = this.state.value;
+        this.props.dispatch(createDeck(value))
+        this.setState({value:''});
+        this.props.navigation.navigate('Explore');
+    }
+
+    //User accepts deck created
+    okDeck = () =>{
+        
+    }
+
     render(){
+
+        if(this.props.deckCreated===true){
+            return(
+                <View style={styles.container}>
+                    <Text style={styles.title}>Deck Created</Text>
+                    <TouchableHighlight style={styles.button} onPress={this.okDeck}>
+                    <Text style={{color:colors.white}}>OK</Text>
+                    </TouchableHighlight>
+                </View>
+            )
+        }else{
+
         return(
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <Text style={styles.title}>Create a NEW deck</Text>  
                 
                     <View style={styles.row}>
                         <Text stlye={styles.label}>Title</Text>              
-                        <TextInput style={styles.input}/>
-                        <TouchableHighlight style={styles.button}>
+                        <TextInput value={this.state.value} onChangeText={this.updateValue} style={styles.input}/>
+                        <TouchableHighlight style={styles.button} onPress={this.createNew}>
                             <Text style={{color:colors.white}}>Create</Text>
                         </TouchableHighlight>
                     </View>
@@ -19,6 +55,7 @@ class CreateDeck extends Component{
                 
             </KeyboardAvoidingView>
         )
+    }
     }
 }
 
@@ -60,4 +97,9 @@ const styles = StyleSheet.create({
 
 })
 
-export default CreateDeck;
+
+function mapStateToProps(state){
+    return state;
+}
+
+export default connect(mapStateToProps)(CreateDeck);

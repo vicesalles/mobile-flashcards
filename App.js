@@ -13,7 +13,7 @@ import CreateButton from './components/CreateButton';
 import MainHeader from './components/MainHeader';
 import CreateDeck from './components/CreateDeck';
 import CreateCard from './components/CreateCard';
-import DoQuiz from './components/Quiz';
+import DoQuiz from './components/DoQuiz';
 import DeckView from './components/DeckView';
 
 //MAIN NAVIGATOR which allows to explore or to create
@@ -26,6 +26,14 @@ const Tab = TabNavigator({
     screen: CreateDeck
   }  
 
+},{
+  
+  tabBarOptions:{
+    tabBarVisible:false,
+    style:{
+      backgroundColor:colors.black
+    }
+  }
 })
 
 //Navigation within already created Decks
@@ -39,7 +47,8 @@ const Stack = StackNavigator({
   Deck:{
     screen:DeckView,
     navigationOptions:{
-      title:'Deck'
+      title:'Deck',
+      headerMode:'screen'
     }
   },
   AddCard:{
@@ -51,9 +60,11 @@ const Stack = StackNavigator({
   Quiz: {
     screen: DoQuiz,
     navigationOptions:{
-      title:'Quiz'
+      header:null
     } 
   }
+},{
+  mode:'card' 
 })
 
 //This function returns the homepage which includes the nested navigator
@@ -82,10 +93,6 @@ export default class App extends React.Component {
   }
 }
 
-/*
- <MainHeader style={styles.header}/>
-    <CreateButton style={styles.button}/>
-*/
 
 const styles = StyleSheet.create({
   container: {

@@ -1,30 +1,40 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableHighlight,StyleSheet } from 'react-native';
 import {black,red,white,grey} from '../utils/colors';
+import {connect} from 'react-redux';
+import {setDeck} from '../actions';
 
 
 class ListDeckItem extends Component {
 
-    constructor(props){
-        super(props);
+    componentDidMount(){
+      // console.log('listItem',this.props.state.navigation);
     }
 
+    //When pressed
     pressed = (id) =>{
-        console.log('push: ',id);
-        this.props.navigation.navigate('Deck');
+        this.props.dispatch(setDeck(this.props.item.title));
+        this.props.ownProps.navigation.navigate('Deck');
     }
 
-    render() {
+    //Getting the Number of cards
+    nCards = (array) =>{
+        
+        return array.length;
+    }
+
+    render() {        
         return (
-        <TouchableHighlight style={styles.item} key={this.props.id} onPress={()=>this.pressed(this.props.id)}>
+        <TouchableHighlight style={styles.item} key={this.props.title} onPress={()=>this.pressed(this.props.title)}>
             <View style={styles.container}>
-                <Text style={styles.title} >{this.props.title}</Text>
-                <Text style={styles.nCards}>{this.props.nCards} cards</Text>
+                <Text style={styles.title} >{this.props.item.title}</Text>
+                <Text style={styles.nCards}>{this.nCards(this.props.item.cards)} cards</Text>
             </View>
         </TouchableHighlight>)
     }
 }
 
+//Styling the component
 const styles = StyleSheet.create({
   item: {
     flex: 1,
@@ -50,4 +60,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ListDeckItem;
+function mapStateToProps(state,ownProps){
+    return {state,ownProps}
+}
+
+export default connect(mapStateToProps)(ListDeckItem);

@@ -3,7 +3,11 @@ import {
 } from 'react-native';
 
 export function getDeck(title) {
-    return AsyncStorage.getItem(title).then((r) => r)
+    return AsyncStorage.getItem(title).then((r) => {
+        return JSON.parse(r);
+    }).then((r) => {
+        return r;
+    });
 }
 
 /**
@@ -11,20 +15,22 @@ export function getDeck(title) {
  * @returns an Object with the response
  */
 export function getAllDecks() {
-
-    //Got this from 'https://facebook.github.io/react-native/releases/0.27/docs/asyncstorage.html'
-    AsyncStorage.getAllKeys((err, keys) => {
-        AsyncStorage.multiGet(keys, (err, stores) => {
-            return stores.map((result, i, store) => {
-                // get at each store's key/value so you can work with it
-                let key = store[i][0];
-                let value = store[i][1];
-                return {
-                    key: value
-                }
+   
+    return AsyncStorage.getAllKeys().then((keys) => {
+       
+        return AsyncStorage.multiGet(keys).then((r) => {
+        
+            const obj = r.map((el)=>{
+                
+                
+                return JSON.parse(el[1]);
+                
             });
-        });
-    });
+            return obj;
+        })
+
+    })
+
 }
 
 
@@ -32,10 +38,10 @@ export function getAllDecks() {
  * @description Creates a new Deck
  */
 export function createDeck(title) {
-    console.log('deck Created:', title)
+    console.log('api:',title);
     return AsyncStorage.setItem(title, JSON.stringify({
         title: title,
-        questions: []
+        cards: []
     }));
 }
 
@@ -44,17 +50,16 @@ export function createDeck(title) {
  * @description Create a new card in a given Deck
  */
 export function createCard(title, card) {
-    getDeck(title).then((r) => {
 
-        return AsyncStorage.mergeItem(title, JSON.stringify({
-            ...r,
-            ['questions']: [
-                ...r['questions'],
-                card
-            ]
-        }))
-
-
+    console.log('API: ',title+' '+card);
+    
+    return getDeck(title).then((r) => {
+        //console.log('getDeck: ',r.cards);
+        //const res = JSON.parse(r);
+        const moreCards = r.cards.concat(card);
+        //console.log('cards',moreCards);
+        const newObject = {title,cards:moreCards};
+        return AsyncStorage.mergeItem(title, JSON.stringify(newObject))
     })
 
 
@@ -64,36 +69,63 @@ export function createCard(title, card) {
  * @description Populates the storage with sample Data
  */
 export function initStorage() {
-    
-    console.log('initStorage');
-
-    return createDeck('Javascript').then(() => {
+    console.log('API is initializing Data.');
+    AsyncStorage.clear();
+    //Dummy Data
+    const js = JSON.stringify({
+        title: 'javascript',
+        cards: [{
+            question: '= and == is the same',
+            tip: 'Asignation and comparison are not the same',
+            result: false
+        }]
+    });
+    const re = JSON.stringify({
+        title: 'react',
+        cards: []
+    });
+    const ex = JSON.stringify({
+        title: 'express',
+        cards: [{
+            question: 'Express is totally different than Node',
+            tip: 'Express is build on top of Node',
+            result: false
+        }]
+    });
+   
+    //Setting up dummy info
+    return AsyncStorage.multiSet([['javascript', js], ['react', re], ['express', ex]],(err)=>{
+        console.log('API done creating dummy data',err);
         
-        createCard('Javascript', {
-            question: '= and == are the same',
-            tip: 'Comparison and asignation ain\'t the same',
-            answer: false
-        }).then(() => {
-            createCard('Javascript', {
-                question: 'a++ equals a= a+1',
-                tip: 'The same for --',
-                answer: true
-            })
-        })
-    }).then(() => {
-        createDeck('React').then(() => {
-            createCard('React', {
-                question: 'state should uptade',
-                tip: 'Try with props',
-                answer: false
-            }).then(() => {
-                createCard('React', {
-                    question: 'props are inherited',
-                    tip: 'That\'s it',
-                    answer: true
-                })
-            })
-        })
     })
 
 }
+
+
+/*
+INITIAL DATA
+
+javascript: {
+            title: 'javascript',
+            cards: [{
+                question: '= and == is the same',
+                tip: 'Asignation and comparison are not the same',
+                result: false
+            }]
+        },
+        react: {
+            title: 'react',
+            cards: []
+        },
+        express: {
+            title: 'express',
+            cards: [{
+                question: 'Express is totally different than Node',
+                tip: 'Express is build on top of Node',
+                result: false
+            }]
+        }
+
+
+
+*/

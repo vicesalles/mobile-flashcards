@@ -1,32 +1,64 @@
 import * as api from '../utils/api';
 export const GET_ALL_DECKS = "GET_ALL_DECKS";
 export const SET_DECK = "SET_DECK";
+export const CREATE_DECK = "CREATE_DECK";
+export const GET_DECK = "GET_DECK";
+export const CREATE_CARD = "CREATE_CARD";
+export const CONFIRM_CREATION = "CONFIRM_CREATION";
+
+
+//Quiz
+
+export const START_QUIZ = "START_QUIZ";
+export const RESET_QUIZ = "RESET_QUIZ";
+export const NEXT_QUESTION = "NEXT_QUESTION";
+
+/**
+ * @description Creates dummy data if no data is avaible
+ * @returns Dummy data
+ */
+export function initData() {
+    return (dispatch) => {
+        api.initStorage().then((decks) => {
+            dispatch(getAllDecks())
+        })
+    }
+}
 
 /**
  * @description Get all avaible decks
  */
 export function getAllDecks() {
-
     return (dispatch) => {
         api.getAllDecks().then((r) => {
-            dispatch({
-                type: GET_ALL_DECKS,
-                decks: r
-            })
+
+            if (r.length === 0) {
+                dispatch(initData());
+            } else {
+                dispatch({
+                    type: GET_ALL_DECKS,
+                    decks: r
+                })
+            }
+
+
         })
     }
-
 }
 
 /**
- * @description populate the app with some sample data
+ * @description Get the given Deck
  */
-export function needSampleData() {
-    console.log('init needSampleData');
-    return api.initStorage().then(() => {
-            return getAllDecks()
+
+export function getDeck(title) {
+    return (dispatch) => {
+        api.getDeck(title).then((r) => {
+            dispatch({
+                type: GET_DECK,
+                deck: r
+            })
         })
-    
+    }
 }
 
 
@@ -37,5 +69,52 @@ export function setDeck(name) {
     return {
         type: SET_DECK,
         name
+    }
+}
+
+/**
+ * @description Creates a new Deck
+ */
+export function createDeck(title) {
+    
+    return (dispatch) => {
+        api.createDeck(title).then(() => {
+            dispatch(getAllDecks())
+        })
+    }
+
+}
+
+export function confirmCreation() {
+    return {
+        type: CONFIRM_CREATION
+    }
+}
+
+export function createCard(deck,card) {
+
+    return (dispatch)=>{
+        api.createCard(deck,card).then(()=>{
+            dispatch(getAllDecks());
+        })
+    }
+}
+
+export function startQuiz(){
+    return{
+        type: START_QUIZ
+    }
+}
+
+export function resetQuiz(){
+    return{
+        type:RESET_QUIZ
+    }
+}
+
+export function nextQuestion(answer){
+    return{
+        type: NEXT_QUESTION,
+        answer
     }
 }
