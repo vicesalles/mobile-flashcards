@@ -14,6 +14,10 @@ class MainList extends Component {
         
     }
 
+    componentWillReceiveProps(){
+        this.props.dispatch(getAllDecks());
+    }
+
     render() {
         return (
             <View>
@@ -32,12 +36,3 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(MainList);
-
-
-/*
-
-[{title:'bob',cards:[1,2,3,4]},{title:'max',cards:[1,2,3]}]
-                
-
-
- */

@@ -1,32 +1,49 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import * as colors from '../../utils/colors';
+import Results from './Results';
 
 import {nextQuestion} from '../../actions';
 
-function Question(props){
+class Question extends Component {
 
     pressed = (value)=>{
-        console.log(value); 
-        
+                
         if(value==='tip'){
-            props.navigation.navigate('Tp');
-        }else{            
-            props.dispatch(nexQuestion(value))           
+            this.props.navigation.navigate('Tp');
+        }else{                
+            //Checking if the answer was correct
+            const result = value===this.props.answer?'ok':'ko';            
+            this.props.dispatch(nextQuestion(result,this.props.last));           
         }
     }
-    console.log(props);
-    return(<View style={styles.container}>
-        <View style={styles.qContainer}>
-            <Text style={styles.question}>{props.question}</Text>
-        </View>
-        <View style={styles.buttons}>
-            <TouchableHighlight onPress={()=>this.pressed('true')} style={[styles.button,styles.true]}><Text style={styles.bText}>TRUE</Text></TouchableHighlight>
-            <TouchableHighlight onPress={()=>this.pressed('false')} style={[styles.button,styles.false]}><Text style={styles.bText}>FALSE</Text></TouchableHighlight>
-            <TouchableHighlight onPress={()=>this.pressed('tip')} style={[styles.button,styles.tip]}><Text style={styles.bText}>TIP</Text></TouchableHighlight>
-        </View>    
-    </View>)
+
+    componentWillReceiveProps(){
+        console.log('will receive props',this.props.ended);       
+        if(this.props.ended){
+            console.log('navigating to Rt');
+            this.props.navigation.navigate('Rt');
+        }
+    }
+
+    render(){
+        if(this.props.ended){
+         return (<Results/>)
+        }else{
+        return(<View style={styles.container}>
+            <View style={styles.qContainer}>
+                <Text style={styles.question}>{this.props.question}</Text>
+            </View>
+            <View style={styles.buttons}>
+                <TouchableHighlight onPress={()=>this.pressed(true)} style={[styles.button,styles.true]}><Text style={styles.bText}>TRUE</Text></TouchableHighlight>
+                <TouchableHighlight onPress={()=>this.pressed(false)} style={[styles.button,styles.false]}><Text style={styles.bText}>FALSE</Text></TouchableHighlight>
+                <TouchableHighlight onPress={()=>this.pressed('tip')} style={[styles.button,styles.tip]}><Text style={styles.bText}>TIP</Text></TouchableHighlight>
+            </View>    
+        </View>)
+        }
+    }
+   
 }
 
 const styles = StyleSheet.create({
@@ -70,11 +87,28 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state){
-    console.log('question muntat');
+    
+    //Getting index for the current Question
     const current = state.currentQuestion;
+    
+    //Getting current Deck
     const deck = state.decks.filter((d)=>d.title===state.currentDeck);
-    const question = deck[0].cards[current].question;
-   return {question};
+    
+    //How many cards does this Deck have?
+    const cards = deck[0].cards.length;
+    
+    //Getting question text
+    const question = deck[0].cards[current]!==undefined?deck[0].cards[current].question:'';
+
+    //Getting correct answer
+    const answer = deck[0].cards[current]!==undefined?deck[0].cards[current].result:'';
+
+    //Checking if this is going to be the last question of the Quizz
+    const last = current+1>=cards?true:false;
+
+    const ended = state.quizEnded;
+
+   return {question,answer,last,ended};
 }
 
 export default connect(mapStateToProps)(Question);

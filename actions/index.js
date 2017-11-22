@@ -12,6 +12,7 @@ export const CONFIRM_CREATION = "CONFIRM_CREATION";
 export const START_QUIZ = "START_QUIZ";
 export const RESET_QUIZ = "RESET_QUIZ";
 export const NEXT_QUESTION = "NEXT_QUESTION";
+export const END_QUIZ = "END_QUIZ";
 
 /**
  * @description Creates dummy data if no data is avaible
@@ -112,9 +113,27 @@ export function resetQuiz(){
     }
 }
 
-export function nextQuestion(answer){
-    return{
-        type: NEXT_QUESTION,
-        answer
+/**
+ * @description pushes the Quizz to the next Question or to The End
+ * @param STRING is the answer ok || ko
+ * @param BOOLEAN was that the last question?
+ */
+export function nextQuestion(answer,last){
+   console.log('ACTION: ',answer);
+    if (last){
+        return (dispatch)=>{
+            dispatch({type: NEXT_QUESTION,
+            answer
+            })
+            dispatch({type: END_QUIZ,
+            answer})
+        }
+    }else{
+        return{
+            type: NEXT_QUESTION,
+            answer
+        }
     }
+
+    
 }

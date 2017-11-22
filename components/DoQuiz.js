@@ -10,6 +10,10 @@ import Counter from './Quiz/Counter';
 import Tip from './Quiz/Tip';
 import Results from './Quiz/Results';
 
+const Hola = () =>{
+    return (<View><Text>hola</Text></View>)
+}
+
 const Quiz = StackNavigator({
     Qt: {
         screen: Question
@@ -25,6 +29,8 @@ const Quiz = StackNavigator({
     headerMode:'none'
 })
 
+
+
 class DoQuiz extends Component{
     state={
         answered:false,
@@ -34,9 +40,9 @@ class DoQuiz extends Component{
     render(){
     
             return(
-                <View style={styles.container}>
+                <View style={{flex:1}}>
                     <Counter style={styles.counter}/>
-                    <Quiz style={styles.question}/>
+                    <Quiz style={{flex:1}}/>
                 </View>
             )
         
@@ -45,7 +51,7 @@ class DoQuiz extends Component{
 }
 
 const styles = StyleSheet.create({
-    container:{
+   /* container:{
         flex:1,
         justifyContent:'flex-start',
         alignItems:'center',
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
         flex:3,
         justifyContent:'flex-start',
         alignItems:'center',
-    }
+    }*/
 })
 
 function mapStateToProps(state){

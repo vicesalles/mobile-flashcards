@@ -6,7 +6,8 @@ import {
     CONFIRM_CREATION,
     RESET_QUIZ,
     START_QUIZ,
-    NEXT_QUESTION    
+    NEXT_QUESTION,
+    END_QUIZ    
 } from '../actions';
 
 //INITIAL STATE
@@ -16,6 +17,7 @@ const initialState = {
     decks: '',
     currentQuiz: false,
     currentQuestion: 0,
+    quizEnded:false,
     ok: 0,
     ko: 0
 }
@@ -78,6 +80,7 @@ export default function reducer(state = initialState, action) {
             return{
                 ...state,
                 currentQuiz:false,
+                quizEnded:false,
                 ok:0,
                 ko:0,
                 currentQuestion:0
@@ -85,24 +88,25 @@ export default function reducer(state = initialState, action) {
 
         case NEXT_QUESTION:
 
-            if(action.answer==='ok'){
-
-                const ok = state.ok+1;
-                const ko = state.ko;
-
-            }else{
-
-                const ok = state.ok;
-                const ko = state.ko+1;
-
-            }
+           //Was the answer ok||ko
+            const ok = action.answer==='ok'?state.ok+1:state.ok;
+            const ko = action.answer==='ko'?state.ko+1:state.ko;
+            const currentQuestion = state.currentQuestion + 1;
 
             return {
                 ...state,
+                currentQuestion,
                 ok,
                 ko
             }
 
+        case END_QUIZ:
+        console.log('reducer',state.quizEnded);
+    
+        return{
+            ...state,
+            quizEnded:true
+        }
 
         default:
             return state;

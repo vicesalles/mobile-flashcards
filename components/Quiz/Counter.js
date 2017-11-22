@@ -21,9 +21,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state){
-    const current = state.currentQuestion+1;
+    
     const deck = state.decks.filter((d)=>d.title===state.currentDeck);
     const total = deck[0].cards.length;
+    const current = state.currentQuestion+1>total?total:state.currentQuestion+1;
+    
     
     return {current,total};
 }
