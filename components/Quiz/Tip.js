@@ -9,7 +9,7 @@ function Tip (props){
         props.navigation.navigate('Qt');
 
     }
-    return(<View>
+    return(<View style={styles.container}>
         <Text>{props.tip}</Text>
         <TouchableHighlight onPress={this.goBack}>
             <Text>Ok</Text>
@@ -18,13 +18,20 @@ function Tip (props){
 }
 
 const styles = StyleSheet.create({
-
+    container:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    }
 })
 
 function mapStateToProps(state){
+    //Getting current deck
+    const deck = state.decks.filter((d)=>d.title===state.currentDeck);
     const current = state.currentQuestion;
-    console.log('Tip',state);
-    return state;
+    //Avoiding Quiz reset error
+    const tip =  state.quizEnded ? '...' : deck[0].cards[current].tip ;
+    return {tip};
 }
 
 export default connect(mapStateToProps)(Tip);

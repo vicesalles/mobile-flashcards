@@ -8,7 +8,7 @@ import {nextQuestion} from '../../actions';
 
 class Question extends Component {
 
-    pressed = (value)=>{s                
+    pressed = (value)=>{         
         if(value==='tip'){
             
             this.props.navigation.navigate('Tp');
@@ -22,7 +22,7 @@ class Question extends Component {
     }
 
     componentWillReceiveProps(){
-        console.log('will receive props',this.props.ended);       
+              
         if(this.props.ended){
             console.log('navigating to Rt');
             this.props.navigation.navigate('Rt');
