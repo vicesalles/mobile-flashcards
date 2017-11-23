@@ -27,10 +27,9 @@ export default function reducer(state = initialState, action) {
         
         case GET_ALL_DECKS:
             const {decks} = action;
-            return { ...state,
-                deckCreated: false,
-                decks
-            }
+            const newState = Object.assign({},state,{decks});
+            return newState;
+
         case GET_DECK:
             return {
                 ...state,

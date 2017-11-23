@@ -21,8 +21,7 @@ This is a flashcard Android App that allows the user creating as much flashcards
 React Native
 
 
-2.Crear Quiz
-    -Model
-    -Vista
-    -Funcionalitat
-    -Pantalla Resultats
+1.Tornar inici en acabar quiz
+2.Pq no carrega llistes a l'inici??????
+3.Mostrar TIP
+4.Estils

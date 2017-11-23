@@ -14,16 +14,17 @@ const Hola = () =>{
     return (<View><Text>hola</Text></View>)
 }
 
+//Navigatin within the Quiz
 const Quiz = StackNavigator({
     Qt: {
         screen: Question
-      },
-      Tp: {
+    },
+    Tp: {
         screen: Tip
-      },
-      Rt: {
+     },
+    Rt: {
         screen: Results
-      }
+    }
 },{
     initialRouteName:'Qt',
     headerMode:'none'
@@ -42,11 +43,10 @@ class DoQuiz extends Component{
             return(
                 <View style={{flex:1}}>
                     <Counter style={styles.counter}/>
-                    <Quiz style={{flex:1}}/>
+                    <Quiz style={{flex:1}} mainNav={this.props.navigation}/>
                 </View>
             )
-        
-        
+                
     }
 }
 

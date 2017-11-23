@@ -64,6 +64,7 @@ const Stack = StackNavigator({
     } 
   }
 },{
+  initialRouteName:'Home',
   mode:'card' 
 })
 

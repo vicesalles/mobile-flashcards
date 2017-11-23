@@ -38,7 +38,6 @@ export function getAllDecks() {
  * @description Creates a new Deck
  */
 export function createDeck(title) {
-    console.log('api:',title);
     return AsyncStorage.setItem(title, JSON.stringify({
         title: title,
         cards: []
@@ -50,14 +49,9 @@ export function createDeck(title) {
  * @description Create a new card in a given Deck
  */
 export function createCard(title, card) {
-
-    console.log('API: ',title+' '+card);
-    
+        
     return getDeck(title).then((r) => {
-        //console.log('getDeck: ',r.cards);
-        //const res = JSON.parse(r);
         const moreCards = r.cards.concat(card);
-        //console.log('cards',moreCards);
         const newObject = {title,cards:moreCards};
         return AsyncStorage.mergeItem(title, JSON.stringify(newObject))
     })
@@ -102,30 +96,3 @@ export function initStorage() {
 }
 
 
-/*
-INITIAL DATA
-
-javascript: {
-            title: 'javascript',
-            cards: [{
-                question: '= and == is the same',
-                tip: 'Asignation and comparison are not the same',
-                result: false
-            }]
-        },
-        react: {
-            title: 'react',
-            cards: []
-        },
-        express: {
-            title: 'express',
-            cards: [{
-                question: 'Express is totally different than Node',
-                tip: 'Express is build on top of Node',
-                result: false
-            }]
-        }
-
-
-
-*/

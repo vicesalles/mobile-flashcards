@@ -8,14 +8,16 @@ import {nextQuestion} from '../../actions';
 
 class Question extends Component {
 
-    pressed = (value)=>{
-                
+    pressed = (value)=>{s                
         if(value==='tip'){
+            
             this.props.navigation.navigate('Tp');
+
         }else{                
             //Checking if the answer was correct
             const result = value===this.props.answer?'ok':'ko';            
             this.props.dispatch(nextQuestion(result,this.props.last));           
+        
         }
     }
 

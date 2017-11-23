@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state){
-
+    
     const Deck = state.decks.filter((i)=>i.title===state.currentDeck);
 
     return Deck[0];

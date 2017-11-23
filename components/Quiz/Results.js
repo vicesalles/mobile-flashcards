@@ -1,14 +1,19 @@
 import React,{Component} from 'react';
 import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
+import { NavigationActions } from 'react-navigation'
 import {connect} from 'react-redux';
 import {resetQuiz} from '../../actions/';
 
 class Results extends Component{
         
     goHome = () =>{
-        console.log(this.props);
         this.props.dispatch(resetQuiz());
-        //this.props.navigation.navigate('Deck');
+        console.log('goHome');
+        this.ownProps.navigation.navigate('Deck');
+    }
+
+    componentDidMount(){
+        console.log('did mount',this.props);
     }
 
     render(){
@@ -31,7 +36,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state,ownProps){
-    
+       
+
     const ok = state.ok;
     const ko = state.ko;
     const total = ko + ok;
