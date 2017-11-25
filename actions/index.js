@@ -119,7 +119,7 @@ export function resetQuiz(){
  * @param BOOLEAN was that the last question?
  */
 export function nextQuestion(answer,last){
-   console.log('ACTION: ',answer);
+   
     if (last){
         return (dispatch)=>{
             dispatch({type: NEXT_QUESTION,

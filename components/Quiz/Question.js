@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
+import { withNavigation } from 'react-navigation';
 import {connect} from 'react-redux';
 import * as colors from '../../utils/colors';
 import Results from './Results';
@@ -12,32 +13,25 @@ class Question extends Component {
         if(value==='tip'){
             
             this.props.navigation.navigate('Tp');
-
         }else{                
             //Checking if the answer was correct
             const result = value===this.props.answer?'ok':'ko';            
-            this.props.dispatch(nextQuestion(result,this.props.last));           
-        
+            this.props.dispatch(nextQuestion(result,this.props.last)); 
         }
     }
 
-    componentWillReceiveProps(){
-              
-        if(this.props.ended){
-            console.log('navigating to Rt');
-            this.props.navigation.navigate('Rt');
-        }
-    }
 
     render(){
         if(this.props.ended){
-         return (<Results/>)
+            //Passing parent Navigator down
+            return (<Results screenProps={this.props.screenProps}/>)
         }else{
-        return(<View style={styles.container}>
+        return(<View style={styles.questionContainer}>
             <View style={styles.qContainer}>
                 <Text style={styles.question}>{this.props.question}</Text>
             </View>
             <View style={styles.buttons}>
+               
                 <TouchableHighlight onPress={()=>this.pressed(true)} style={[styles.button,styles.true]}><Text style={styles.bText}>TRUE</Text></TouchableHighlight>
                 <TouchableHighlight onPress={()=>this.pressed(false)} style={[styles.button,styles.false]}><Text style={styles.bText}>FALSE</Text></TouchableHighlight>
                 <TouchableHighlight onPress={()=>this.pressed('tip')} style={[styles.button,styles.tip]}><Text style={styles.bText}>TIP</Text></TouchableHighlight>
@@ -50,7 +44,7 @@ class Question extends Component {
 
 const styles = StyleSheet.create({
 
-    container:{
+    questionContainer:{
         flex:1,
         justifyContent:'flex-start',
         alignItems:'center'
@@ -88,7 +82,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function mapStateToProps(state){
+function mapStateToProps(state,ownProps){
     
     //Getting index for the current Question
     const current = state.currentQuestion;
@@ -110,7 +104,7 @@ function mapStateToProps(state){
 
     const ended = state.quizEnded;
 
-   return {question,answer,last,ended};
+   return {question,answer,last,ended,ownProps};
 }
 
-export default connect(mapStateToProps)(Question);
+export default withNavigation(connect(mapStateToProps)(Question));

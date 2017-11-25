@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar,TouchableHighlight } from 'react-native';
 import {TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore,applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import * as colors from './utils/colors';
+import { FontAwesome } from '@expo/vector-icons';
 
 import MainList from './components/MainList';
 import FlashStatusBar from './components/FlashStatusBar';
@@ -46,10 +47,11 @@ const Stack = StackNavigator({
   },
   Deck:{
     screen:DeckView,
-    navigationOptions:{
+    navigationOptions:({navigation})=>({
       title:'Deck',
-      headerMode:'screen'
-    }
+      headerMode:'screen',
+      headerLeft: <TouchableHighlight onPress={() =>navigation.navigate("Home")}><FontAwesome name='home' color={'black'}/></TouchableHighlight>
+    })
   },
   AddCard:{
     screen: CreateCard,
@@ -58,10 +60,10 @@ const Stack = StackNavigator({
     } 
   },  
   Quiz: {
-    screen: DoQuiz,
+    screen: ({navigation})=> <DoQuiz screenProps={{rootNavigation:navigation}}/>,
     navigationOptions:{
       header:null
-    } 
+    }
   }
 },{
   initialRouteName:'Home',
@@ -79,8 +81,7 @@ const store = createStore(
 )
 
 export default class App extends React.Component {
-
-  
+   
   render() {
     
     return (

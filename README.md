@@ -20,8 +20,6 @@ This is a flashcard Android App that allows the user creating as much flashcards
 
 React Native
 
-
 1.Tornar inici en acabar quiz
-2.Pq no carrega llistes a l'inici??????
-3.Mostrar TIP
+2.Sobre-escriure botó 'enrere' de DECK pq vagi a Home i no endarrere
 4.Estils

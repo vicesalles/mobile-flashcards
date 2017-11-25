@@ -100,8 +100,7 @@ export default function reducer(state = initialState, action) {
             }
 
         case END_QUIZ:
-        console.log('reducer',state.quizEnded);
-    
+           
         return{
             ...state,
             quizEnded:true

@@ -1,19 +1,18 @@
 import React,{Component} from 'react';
 import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
-import { NavigationActions } from 'react-navigation'
+import { withNavigation, NavigationActions } from 'react-navigation';
 import {connect} from 'react-redux';
 import {resetQuiz} from '../../actions/';
 
 class Results extends Component{
-        
+    
+    //Navigate to Deck View
     goHome = () =>{
-        this.props.dispatch(resetQuiz());
-        console.log('goHome');
-        this.ownProps.navigation.navigate('Deck');
+     this.props.screenProps.navigate('Deck');       
     }
 
     componentDidMount(){
-        console.log('did mount',this.props);
+        console.log('Results',this.props);
     }
 
     render(){
@@ -37,10 +36,10 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state,ownProps){
        
-
     const ok = state.ok;
     const ko = state.ko;
     const total = ko + ok;
+    
     //Caltulating average correct responses
     const avg = Math.round((ok*100)/total);
 
@@ -53,4 +52,4 @@ function mapStateToProps(state,ownProps){
     return {quiz,ownProps};
 }
 
-export default connect(mapStateToProps)(Results);
+export default withNavigation(connect(mapStateToProps)(Results));

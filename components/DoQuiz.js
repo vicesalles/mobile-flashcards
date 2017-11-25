@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
-import {StackNavigator} from 'react-navigation';
+import {StackNavigator, withNavigation, NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
 
 import * as colors from '../utils/colors';
@@ -17,18 +17,16 @@ const Hola = () =>{
 //Navigatin within the Quiz
 const Quiz = StackNavigator({
     Qt: {
-        screen: Question
+        screen:Question
     },
     Tp: {
         screen: Tip
-     },
-    Rt: {
-        screen: Results
-    }
+     }
 },{
     initialRouteName:'Qt',
     headerMode:'none'
 })
+
 
 
 
@@ -43,7 +41,7 @@ class DoQuiz extends Component{
             return(
                 <View style={{flex:1}}>
                     <Counter style={styles.counter}/>
-                    <Quiz style={{flex:1}} mainNav={this.props.navigation}/>
+                    <Quiz style={{flex:1}} screenProps={this.props.screenProps.rootNavigation}/>
                 </View>
             )
                 
@@ -67,8 +65,8 @@ const styles = StyleSheet.create({
     }*/
 })
 
-function mapStateToProps(state){
-    return state;
+function mapStateToProps(state,ownProps){
+    return {state,ownProps};
 }
 
-export default connect(mapStateToProps)(DoQuiz);
+export default withNavigation(connect(mapStateToProps)(DoQuiz));
