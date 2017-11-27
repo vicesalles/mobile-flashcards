@@ -50,7 +50,7 @@ const Stack = StackNavigator({
     navigationOptions:({navigation})=>({
       title:'Deck',
       headerMode:'screen',
-      headerLeft: <TouchableHighlight onPress={() =>navigation.navigate("Home")}><FontAwesome name='home' color={'black'}/></TouchableHighlight>
+      headerLeft: <TouchableHighlight style={{marginLeft:10}} onPress={() =>navigation.navigate("Home")}><FontAwesome name='home' size={25} color={'black'}/></TouchableHighlight>
     })
   },
   AddCard:{

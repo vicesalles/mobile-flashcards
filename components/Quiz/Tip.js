@@ -1,6 +1,7 @@
 import React from 'react';
 import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
+import * as colors from '../../utils/colors';
 
 function Tip (props){
 
@@ -10,9 +11,9 @@ function Tip (props){
 
     }
     return(<View style={styles.container}>
-        <Text>{props.tip}</Text>
-        <TouchableHighlight onPress={this.goBack}>
-            <Text>Ok</Text>
+        <Text style={styles.tip}>{props.tip}</Text>
+        <TouchableHighlight onPress={this.goBack} style={styles.okButton}>
+            <Text style={styles.btText}>Ok</Text>
         </TouchableHighlight>
     </View>)
 }
@@ -22,6 +23,23 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center'
+    },
+    okButton:{
+        padding:20,
+        paddingRight:10,
+        paddingLeft:10,
+        marginTop:5,
+        borderRadius:8,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor:colors.red
+    },
+    btText:{
+        color:colors.white,
+        fontSize:25
+    },
+    tip:{
+        fontSize:35
     }
 })
 

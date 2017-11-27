@@ -3,6 +3,8 @@ import {View,Text,TouchableHighlight,StyleSheet} from 'react-native';
 import { withNavigation, NavigationActions } from 'react-navigation';
 import {connect} from 'react-redux';
 import {resetQuiz} from '../../actions/';
+import { FontAwesome } from '@expo/vector-icons';
+import * as colors from '../../utils/colors';
 
 class Results extends Component{
     
@@ -18,10 +20,12 @@ class Results extends Component{
     render(){
         return( 
         <View style={styles.container}>
-            <Text>{this.props.quiz.avg}% Correct</Text>
-            <Text>{this.props.quiz.ok}</Text>
-            <Text>{this.props.quiz.ko}</Text>
-            <TouchableHighlight onPress={this.goHome}><Text>OK</Text></TouchableHighlight>
+            <Text style={styles.avg}>{this.props.quiz.avg}% Correct</Text>
+            <View style={styles.count}>
+                <Text style={styles.result}>{this.props.quiz.ok} <FontAwesome name="check"/></Text>
+                <Text style={styles.result} >{this.props.quiz.ko} <FontAwesome name="close"/></Text>
+            </View>
+            <TouchableHighlight style={styles.backButton} onPress={this.goHome}><Text style={styles.btText}>Go back</Text></TouchableHighlight>
         </View>)                        
     }
 }
@@ -31,6 +35,31 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center'
+    },
+    avg:{
+        fontSize:30
+    },
+    result:{
+        fontSize:25,
+        marginLeft:25
+    },
+    count:{
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
+    backButton:{
+        padding:20,
+        paddingRight:10,
+        paddingLeft:10,
+        marginTop:5,
+        borderRadius:8,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor:colors.red
+    },
+    btText:{
+        color:colors.white,
+        fontSize:15
     }
 })
 

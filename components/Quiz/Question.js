@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
     false:{
         backgroundColor:colors.red,        
     },
-    tip:{backgroundColor:colors.blue},
+    tip:{backgroundColor:colors.grey},
     bText:{
         color:colors.white,
-        fontSize:35
+        fontSize:25
     }
 });
 
