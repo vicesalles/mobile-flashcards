@@ -32,7 +32,9 @@ class DeckView extends Component{
                     <Text style={styles.nCards}>{this.getNcards(this.props.cards)}</Text>
                 </View>
                 <View style={styles.buttonContainer}>
+                    {this.props.cards.length>0 &&
                     <TouchableHighlight style={[styles.quiz,styles.button]} onPress={this.goQuiz}><Text style={[styles.quizText,styles.textButton]}>Quiz</Text></TouchableHighlight>
+                    }
                     <TouchableHighlight style={[styles.addCard,styles.button]} onPress={this.createCard} ><Text style={styles.textButton}>Add Card</Text></TouchableHighlight>
                 </View>
             </View>
