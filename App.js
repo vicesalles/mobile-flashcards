@@ -28,7 +28,7 @@ const Tab = TabNavigator({
   }  
 
 },{
-  
+  initialRouteName:'Explore',
   tabBarOptions:{
     tabBarVisible:false,
     style:{
@@ -76,6 +76,7 @@ function Home(){
   return <Stack/>
 }
 
+//Redux store
 const store = createStore(
     reducer, applyMiddleware(thunk)    
 )

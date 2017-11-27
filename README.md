@@ -6,7 +6,7 @@ This is the final project of the Udacity's React Nanodegree, React Native sectio
 
 ## WHAT
 
-This is a flashcard Android App that allows the user creating as much flashcards as he wants about as much topics as he wants.
+This is a flashcard React Native App for Android that allows the user creating as much flashcards as he wants about as much topics as he wants. Redux is used for managing the State
 
 ## HOW
 
@@ -18,8 +18,7 @@ This is a flashcard Android App that allows the user creating as much flashcards
 
 ### Keywords
 
-React Native
+React Native, Redux
 
-1.Tornar inici en acabar quiz
-2.Sobre-escriure botó 'enrere' de DECK pq vagi a Home i no endarrere
-4.Estils
+1.Estils
+2.A l'inici no carrega el menú, què ho fa?
