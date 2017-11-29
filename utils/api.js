@@ -15,16 +15,16 @@ export function getDeck(title) {
  * @returns an Object with the response
  */
 export function getAllDecks() {
-   
+
     return AsyncStorage.getAllKeys().then((keys) => {
-       
+
         return AsyncStorage.multiGet(keys).then((r) => {
-        
-            const obj = r.map((el)=>{
-                
-                
+
+            const obj = r.map((el) => {
+
+
                 return JSON.parse(el[1]);
-                
+
             });
             return obj;
         })
@@ -38,10 +38,13 @@ export function getAllDecks() {
  * @description Creates a new Deck
  */
 export function createDeck(title) {
-    return AsyncStorage.setItem(title, JSON.stringify({
-        title: title,
-        cards: []
-    }));
+    //Checking the deck is not empty
+    if (title !== '') {
+        return AsyncStorage.setItem(title, JSON.stringify({
+            title: title,
+            cards: []
+        }));
+    }
 }
 
 
@@ -49,10 +52,13 @@ export function createDeck(title) {
  * @description Create a new card in a given Deck
  */
 export function createCard(title, card) {
-        
+
     return getDeck(title).then((r) => {
         const moreCards = r.cards.concat(card);
-        const newObject = {title,cards:moreCards};
+        const newObject = {
+            title,
+            cards: moreCards
+        };
         return AsyncStorage.mergeItem(title, JSON.stringify(newObject))
     })
 
@@ -86,13 +92,15 @@ export function initStorage() {
             result: false
         }]
     });
-   
+
     //Setting up dummy info
-    return AsyncStorage.multiSet([['javascript', js], ['react', re], ['express', ex]],(err)=>{
-        console.log('API done creating dummy data',err);
-        
+    return AsyncStorage.multiSet([
+        ['javascript', js],
+        ['react', re],
+        ['express', ex]
+    ], (err) => {
+        console.log('API done creating dummy data', err);
+
     })
 
 }
-
-
