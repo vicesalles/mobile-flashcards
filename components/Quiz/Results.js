@@ -10,7 +10,13 @@ class Results extends Component{
     
     //Navigate to Deck View
     goHome = () =>{
-     this.props.screenProps.navigate('Deck');       
+     this.props.screenProps.navigate('Deck'); 
+     this.props.dispatch(resetQuiz());      
+    }
+
+    //Restart QUiz
+    tryAgain = () =>{
+        this.props.dispatch(resetQuiz());  
     }
 
     componentDidMount(){
@@ -22,9 +28,11 @@ class Results extends Component{
         <View style={styles.container}>
             <Text style={styles.avg}>{this.props.quiz.avg}% Correct</Text>
             <View style={styles.count}>
-                <Text style={styles.result}>{this.props.quiz.ok} <FontAwesome name="check"/></Text>
-                <Text style={styles.result} >{this.props.quiz.ko} <FontAwesome name="close"/></Text>
+                <Text style={styles.result}>{this.props.quiz.ok} <FontAwesome name="check" size={30} color={colors.green}/></Text>
+                <Text style={styles.result} >{this.props.quiz.ko} <FontAwesome name="close" size={30} color={colors.red}/></Text>
             </View>
+            <TouchableHighlight style={[styles.backButton,styles.tryAgain]} onPress={this.tryAgain}><Text style={styles.btText}>Try Again</Text></TouchableHighlight>
+        
             <TouchableHighlight style={styles.backButton} onPress={this.goHome}><Text style={styles.btText}>Go back</Text></TouchableHighlight>
         </View>)                        
     }
@@ -40,7 +48,7 @@ const styles = StyleSheet.create({
         fontSize:30
     },
     result:{
-        fontSize:25,
+        fontSize:30,
         marginLeft:25
     },
     count:{
@@ -56,6 +64,9 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:colors.red
+    },
+    tryAgain:{
+        backgroundColor:colors.green
     },
     btText:{
         color:colors.white,
