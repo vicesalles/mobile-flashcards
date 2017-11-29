@@ -51,18 +51,12 @@ export default function reducer(state = initialState, action) {
         case CREATE_DECK:
             console.log('REDUCER deck created');
             const deckTitle = action.title;
-            const newDecks = Object.assign({
-                deckTitle: {
-                    title: deckTitle,
-                    cards: []
-                },
-            }, state['decks'])
+           
             return {
                 ...state,
-                decks: newDecks,
-                deckCreated: true,
                 currentDeck: deckTitle
             }
+            
         case CONFIRM_CREATION:
             return {
                 ...state,

@@ -9,12 +9,13 @@ import * as api from '../utils/api';
 class MainList extends Component {
 
     componentDidMount() {
+        //This action resets AsyncStorage it has a development pourpose
         //this.props.dispatch(initData());
-        this.props.dispatch(getAllDecks());
-        
+        this.props.dispatch(getAllDecks());        
     }
 
     componentWillReceiveProps(){
+        //We're getting the decks
         this.props.dispatch(getAllDecks());
     }
 

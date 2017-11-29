@@ -19,10 +19,6 @@ class Results extends Component{
         this.props.dispatch(resetQuiz());  
     }
 
-    componentDidMount(){
-        console.log('Results',this.props);
-    }
-
     render(){
         return( 
         <View style={styles.container}>

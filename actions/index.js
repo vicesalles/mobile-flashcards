@@ -81,6 +81,7 @@ export function createDeck(title) {
     return (dispatch) => {
         api.createDeck(title).then(() => {
             dispatch(getAllDecks())
+            dispatch({type:CREATE_DECK,title})
         })
     }
 
