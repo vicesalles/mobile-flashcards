@@ -27,7 +27,8 @@ export default function reducer(state = initialState, action) {
         
         case GET_ALL_DECKS:
             const {decks} = action;
-            const newState = Object.assign({},state,{decks});
+            const filteredDecks = decks.filter((d)=>typeof d !=='boolean');
+            const newState = Object.assign({},state,{decks:filteredDecks});
             return newState;
 
         case GET_DECK:
@@ -48,7 +49,7 @@ export default function reducer(state = initialState, action) {
         }
 
         case CREATE_DECK:
-
+            console.log('REDUCER deck created');
             const deckTitle = action.title;
             const newDecks = Object.assign({
                 deckTitle: {
@@ -59,7 +60,8 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 decks: newDecks,
-                deckCreated: true
+                deckCreated: true,
+                currentDeck: deckTitle
             }
         case CONFIRM_CREATION:
             return {
