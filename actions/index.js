@@ -6,9 +6,7 @@ export const GET_DECK = "GET_DECK";
 export const CREATE_CARD = "CREATE_CARD";
 export const CONFIRM_CREATION = "CONFIRM_CREATION";
 
-
 //Quiz
-
 export const START_QUIZ = "START_QUIZ";
 export const RESET_QUIZ = "RESET_QUIZ";
 export const NEXT_QUESTION = "NEXT_QUESTION";
@@ -49,6 +47,7 @@ export function getAllDecks() {
 
 /**
  * @description Get the given Deck
+ * @param String title
  */
 
 export function getDeck(title) {
@@ -93,6 +92,11 @@ export function confirmCreation() {
     }
 }
 
+/**
+ * @description Create a new Card for a Deck
+ * @param STRING deck 
+ * @param Object card 
+ */
 export function createCard(deck,card) {
 
     return (dispatch)=>{
@@ -116,8 +120,8 @@ export function resetQuiz(){
 
 /**
  * @description pushes the Quizz to the next Question or to The End
- * @param STRING is the answer ok || ko
- * @param BOOLEAN was that the last question?
+ * @param STRING answer - is the answer ok || ko
+ * @param BOOLEAN last - was that the last question?
  */
 export function nextQuestion(answer,last){
    

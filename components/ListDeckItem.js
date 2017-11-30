@@ -7,22 +7,20 @@ import {NavigationActions} from 'react-navigation';
 
 
 class ListDeckItem extends Component {
-
-    componentDidMount(){
-      // console.log('listItem',this.props.state.navigation);
-    }
-
+   
     //When pressed
     pressed = (id) =>{
         this.props.dispatch(setDeck(this.props.item.title));
         const title = this.props.item.title;
+
+        //Will pass the Deck title via navigation params
         const navigateAction = NavigationActions.navigate({
             routeName:'Deck',
             params:{
                 deck: title
             }
         })
-        //this.props.ownProps.navigation.navigate('Deck');
+        
         this.props.ownProps.navigation.dispatch(navigateAction);
     }
 

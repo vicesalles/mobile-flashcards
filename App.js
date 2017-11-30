@@ -71,7 +71,6 @@ const Tab = TabNavigator({
 
 
 //This function returns the homepage which includes the nested navigator
-
 function Home(){
   return <Tab/>
 }
