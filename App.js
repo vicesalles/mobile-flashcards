@@ -1,12 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar,TouchableHighlight } from 'react-native';
 import {TabNavigator, StackNavigator } from 'react-navigation';
-import { createStore,applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
 import * as colors from './utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
+import store from './store';
 
 import MainList from './components/MainList';
 import FlashStatusBar from './components/FlashStatusBar';
@@ -75,11 +73,6 @@ const Stack = StackNavigator({
 function Home(){
   return <Stack/>
 }
-
-//Redux store
-const store = createStore(
-    reducer, applyMiddleware(thunk)    
-)
 
 export default class App extends React.Component {
    
