@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import * as colors from './utils/colors';
 import { FontAwesome } from '@expo/vector-icons';
 import store from './store';
+import {setLocalNotification} from './utils/notification';
 
 import MainList from './components/MainList';
 import FlashStatusBar from './components/FlashStatusBar';
@@ -77,6 +78,11 @@ function Home(){
 
 export default class App extends React.Component {
    
+  componentDidMount(){
+    //Setting up local notifications
+    setLocalNotification();
+  }
+
   render() {
     
     return (

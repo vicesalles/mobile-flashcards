@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import {resetQuiz} from '../../actions/';
 import { FontAwesome } from '@expo/vector-icons';
 import * as colors from '../../utils/colors';
+import {clearLocalNotification,setLocalNotification} from '../../utils/notification';
+
 
 class Results extends Component{
     
@@ -17,6 +19,11 @@ class Results extends Component{
     //Restart QUiz
     tryAgain = () =>{
         this.props.dispatch(resetQuiz());  
+    }
+
+    componentDidMount(){
+        //Disabling notifications for today
+        clearLocalNotification().then(setLocalNotification);
     }
 
     render(){

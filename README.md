@@ -20,5 +20,3 @@ This is a flashcard React Native App for Android that allows the user creating a
 
 React Native, Redux
 
-1.Estils
-2.A l'inici no carrega el menú, què ho fa?
