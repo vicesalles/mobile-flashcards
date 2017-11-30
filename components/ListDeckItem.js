@@ -3,6 +3,7 @@ import {View, Text, TouchableHighlight,StyleSheet } from 'react-native';
 import {black,red,white,grey} from '../utils/colors';
 import {connect} from 'react-redux';
 import {setDeck} from '../actions';
+import {NavigationActions} from 'react-navigation';
 
 
 class ListDeckItem extends Component {
@@ -14,7 +15,15 @@ class ListDeckItem extends Component {
     //When pressed
     pressed = (id) =>{
         this.props.dispatch(setDeck(this.props.item.title));
-        this.props.ownProps.navigation.navigate('Deck');
+        const title = this.props.item.title;
+        const navigateAction = NavigationActions.navigate({
+            routeName:'Deck',
+            params:{
+                deck: title
+            }
+        })
+        //this.props.ownProps.navigation.navigate('Deck');
+        this.props.ownProps.navigation.dispatch(navigateAction);
     }
 
     //Getting the Number of cards

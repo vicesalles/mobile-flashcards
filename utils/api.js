@@ -44,6 +44,8 @@ export function createDeck(title) {
             title: title,
             cards: []
         }));
+    }else{
+        return 'error';
     }
 }
 

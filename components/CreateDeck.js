@@ -3,6 +3,7 @@ import {View, Text, TouchableHighlight, StyleSheet, TextInput, KeyboardAvoidingV
 import {connect} from 'react-redux';
 import * as colors from '../utils/colors';
 import {createDeck} from '../actions';
+import {NavigationActions} from 'react-navigation';
 
 class CreateDeck extends Component{
     state={
@@ -17,9 +18,15 @@ class CreateDeck extends Component{
     //Create Decks
     createNew = () =>{
         const value = this.state.value;
-        this.props.dispatch(createDeck(value))
+        this.props.dispatch(createDeck(value));
         this.setState({value:''});
-        this.props.navigation.navigate('Explore');
+        
+        const navigateAction = NavigationActions.navigate({
+            routeName:'Explore',
+            action: NavigationActions.navigate({routeName:'Deck',params:{deck:value}})
+        })
+        
+        this.props.navigation.dispatch(navigateAction);
     }
    
     render(){

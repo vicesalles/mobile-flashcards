@@ -15,26 +15,6 @@ import CreateCard from './components/CreateCard';
 import DoQuiz from './components/DoQuiz';
 import DeckView from './components/DeckView';
 
-//MAIN NAVIGATOR which allows to explore or to create
-const Tab = TabNavigator({
-
-  Explore:{
-    screen: Home
-  },
-  Create:{
-    screen: CreateDeck
-  }  
-
-},{
-  initialRouteName:'Explore',
-  tabBarOptions:{
-    tabBarVisible:false,
-    style:{
-      backgroundColor:colors.black
-    }
-  }
-})
-
 //Navigation within already created Decks
 const Stack = StackNavigator({
   Home: {
@@ -68,10 +48,32 @@ const Stack = StackNavigator({
   mode:'card' 
 })
 
+//MAIN NAVIGATOR which allows to explore or to create
+const Tab = TabNavigator({
+
+  Explore:{
+    screen: Stack
+  },
+  Create:{
+    screen: CreateDeck
+  }  
+
+},{
+  initialRouteName:'Explore',
+  tabBarOptions:{
+    tabBarVisible:false,
+    style:{
+      backgroundColor:colors.black
+    }
+  }
+})
+
+
+
 //This function returns the homepage which includes the nested navigator
 
 function Home(){
-  return <Stack/>
+  return <Tab/>
 }
 
 export default class App extends React.Component {
@@ -82,7 +84,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={styles.container}>
           <FlashStatusBar/>       
-          <Tab/>     
+          <Home/>    
         </View>
       </Provider>
     );

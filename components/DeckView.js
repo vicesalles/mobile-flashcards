@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, Text, TouchableHighlight,StyleSheet } from 'react-native';
 import * as colors from '../utils/colors';
 import {connect} from 'react-redux';
+import {withNavigation} from 'react-navigation';
 
 class DeckView extends Component{
 
@@ -87,11 +88,22 @@ const styles = StyleSheet.create({
 
 });
 
-function mapStateToProps(state){
-    
-    const Deck = state.decks.filter((i)=>i.title===state.currentDeck);
+function mapStateToProps(state,ownProps){
+   
+    const currentDeck = ownProps.navigation.state.params.deck;
+        
+    const Deck = state.decks.filter((i)=>i.title===currentDeck);
 
-    return Deck[0];
+    const Loading = {title:'Loading...',cards:[]}
+
+    if (Deck[0]===undefined){
+        return Loading;
+    }else{
+        return Deck[0];
+    }
+
+    
+    
 }
 
-export default connect(mapStateToProps)(DeckView);
+export default withNavigation(connect(mapStateToProps)(DeckView));
