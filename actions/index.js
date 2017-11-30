@@ -1,16 +1,5 @@
 import * as api from '../utils/api';
-export const GET_ALL_DECKS = "GET_ALL_DECKS";
-export const SET_DECK = "SET_DECK";
-export const CREATE_DECK = "CREATE_DECK";
-export const GET_DECK = "GET_DECK";
-export const CREATE_CARD = "CREATE_CARD";
-export const CONFIRM_CREATION = "CONFIRM_CREATION";
-
-//Quiz
-export const START_QUIZ = "START_QUIZ";
-export const RESET_QUIZ = "RESET_QUIZ";
-export const NEXT_QUESTION = "NEXT_QUESTION";
-export const END_QUIZ = "END_QUIZ";
+import {GET_ALL_DECKS,SET_DECK,CREATE_DECK,GET_DECK,CREATE_CARD,CONFIRM_CREATION,START_QUIZ,RESET_QUIZ,NEXT_QUESTION,END_QUIZ} from './types';
 
 /**
  * @description Creates dummy data if no data is avaible

@@ -8,7 +8,7 @@ import {
     START_QUIZ,
     NEXT_QUESTION,
     END_QUIZ    
-} from '../actions';
+} from '../actions/types';
 
 //INITIAL STATE
 const initialState = {
