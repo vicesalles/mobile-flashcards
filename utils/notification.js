@@ -9,12 +9,12 @@ import { Notifications, Permissions } from 'expo';
 //Defining notifications Key
 const NOTIFICATION_KEY = 'MobileFlashCards:notifications';
 
-export function clearLocalNotification () {
+export const clearLocalNotification = () => {
     return AsyncStorage.removeItem(NOTIFICATION_KEY)
       .then(Notifications.cancelAllScheduledNotificationsAsync)
   }
   
-  function createNotification () {
+  const createNotification = () => {
     return {
       title: "Study!",
       body: "Train with your cards!",
@@ -27,7 +27,7 @@ export function clearLocalNotification () {
     }
   }
   
-  export function setLocalNotification () {
+  export const setLocalNotification = () => {
     
     AsyncStorage.getItem(NOTIFICATION_KEY)
       .then(JSON.parse)
@@ -50,8 +50,7 @@ export function clearLocalNotification () {
                     time: tomorrow,
                     repeat: 'day',
                   }
-                )
-  
+                )  
                 AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
               }
             })
