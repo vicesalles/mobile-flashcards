@@ -21,7 +21,6 @@ class Results extends Component {
         })
 
         this.props.screenProps.dispatch(navigateAction);
-        //this.props.screenProps.navigate('Deck');
         this.props.dispatch(resetQuiz());
     }
 
@@ -30,10 +29,10 @@ class Results extends Component {
         this.props.dispatch(resetQuiz());
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         //Disabling notifications for today
-        //clearLocalNotification().then(setLocalNotification);
-    }
+        clearLocalNotification().then(setLocalNotification);
+    }*/
 
     render() {
         return (
