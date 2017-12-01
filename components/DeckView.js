@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, Text, TouchableHighlight,StyleSheet } from 'react-native';
 import * as colors from '../utils/colors';
 import {connect} from 'react-redux';
+import {setDeck} from '../actions';
 import {withNavigation} from 'react-navigation';
 
 class DeckView extends Component{
@@ -23,6 +24,11 @@ class DeckView extends Component{
         }else{
             return `${l} cards`;
         }
+    }
+
+    componentDidMount(){
+        const theDeck = this.props.title;
+        this.props.dispatch(setDeck(theDeck));
     }
 
     render(){

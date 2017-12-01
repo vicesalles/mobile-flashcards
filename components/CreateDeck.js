@@ -18,15 +18,19 @@ class CreateDeck extends Component{
     //Create Decks
     createNew = () =>{
         const value = this.state.value;
-        this.props.dispatch(createDeck(value));
-        this.setState({value:''});
-        
-        const navigateAction = NavigationActions.navigate({
-            routeName:'Explore',
-            action: NavigationActions.navigate({routeName:'Deck',params:{deck:value}})
-        })
-        
-        this.props.navigation.dispatch(navigateAction);
+
+        //Checking if user is submiting void stuff
+        if (value!==""){
+            this.props.dispatch(createDeck(value));
+            this.setState({value:''});
+            
+            const navigateAction = NavigationActions.navigate({
+                routeName:'Explore',
+                action: NavigationActions.navigate({routeName:'Deck',params:{deck:value}})
+            })
+            
+            this.props.navigation.dispatch(navigateAction);
+        }// I'd like to implement an else here...
     }
    
     render(){
