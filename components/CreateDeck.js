@@ -7,7 +7,8 @@ import {NavigationActions} from 'react-navigation';
 
 class CreateDeck extends Component{
     state={
-        value:''
+        value:'',
+        alert:false
     }
 
     //Updates form value
@@ -22,7 +23,7 @@ class CreateDeck extends Component{
         //Checking if user is submiting void stuff
         if (value!==""){
             this.props.dispatch(createDeck(value));
-            this.setState({value:''});
+            this.setState({value:'',alert:false});
             
             const navigateAction = NavigationActions.navigate({
                 routeName:'Explore',
@@ -30,7 +31,9 @@ class CreateDeck extends Component{
             })
             
             this.props.navigation.dispatch(navigateAction);
-        }// I'd like to implement an else here...
+        }else{
+            this.setState({alert:true})
+        }
     }
    
     render(){
@@ -38,7 +41,7 @@ class CreateDeck extends Component{
         return(
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <Text style={styles.title}>Create a NEW deck</Text>  
-                
+                {this.state.alert&&<Text>You must enter a name!</Text>}
                     <View style={styles.row}>
                         <Text stlye={styles.label}>Title</Text>              
                         <TextInput value={this.state.value} onChangeText={this.updateValue} style={styles.input}/>
